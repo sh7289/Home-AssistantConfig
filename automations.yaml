@@ -1,0 +1,44 @@
+- id: telegramboot
+  alias: Telegram bot to notify on boot
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - service: notify.steveIOS
+    data:
+      message: Home Assistant rebooted
+- id: '1582524911401'
+  alias: Alarm Event
+  description: ''
+  trigger:
+  - device_id: 8b10ac7264dd4fbaa0b3bb155a852d78
+    domain: binary_sensor
+    entity_id: binary_sensor.konnected_b25e4d_zone_5
+    platform: device
+    type: opened
+  - device_id: 8b10ac7264dd4fbaa0b3bb155a852d78
+    domain: binary_sensor
+    entity_id: binary_sensor.konnected_b25e4d_zone_1
+    platform: device
+    type: opened
+  - device_id: 8b10ac7264dd4fbaa0b3bb155a852d78
+    domain: binary_sensor
+    entity_id: binary_sensor.konnected_b25e4d_zone_2
+    platform: device
+    type: motion
+  - device_id: 8b10ac7264dd4fbaa0b3bb155a852d78
+    domain: binary_sensor
+    entity_id: binary_sensor.konnected_b25e4d_zone_4
+    platform: device
+    type: motion
+  - device_id: 8b10ac7264dd4fbaa0b3bb155a852d78
+    domain: binary_sensor
+    entity_id: binary_sensor.konnected_b25e4d_zone_3
+    platform: device
+    type: opened
+  condition: []
+  action:
+  - data:
+      message: Something triggered the alarm.
+    service: notify.steveios

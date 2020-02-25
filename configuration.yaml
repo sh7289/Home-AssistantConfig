@@ -1,0 +1,113 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+weather:
+  - platform: darksky
+    api_key: ef6678e505dae643ecef0fa4d9787ec1
+
+mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
+
+zwave:
+  usb_path: /dev/zwave
+#  device_config: /usr/local/lib/python3.7/dist-packages/openzwave
+discovery:
+konnected:
+  access_token: 'thisistest'
+  api_host: http://192.168.29.123:8123
+  devices:
+    - id: 98f4abb25e4d
+      binary_sensors:
+        - zone: 1
+          type: door
+          name: 'Front Door'
+        - zone: 2
+          type: motion
+          name: 'Test Motion'
+        - zone: 3
+          type: door
+          name: 'Back Door'
+        - zone: 4
+          type: motion
+          name: 'Back Motion'
+        - zone: 5
+          type: window
+          name: 'Back Windows'
+      switches:
+#        - zone: out
+#          name: siren
+#        - zone: 5
+#          name: 'Beep Beep'
+#          momentary: 65
+#          pause: 55
+#          repeat: 4
+#        - zone: 5
+#          name: Warning
+#          momentary: 65
+#          pause: 55
+#          repeat: -1
+    - id: 98f4abb2615b
+      binary_sensors:
+        - zone: 1
+          type: window
+          name: 'Front Windows'
+        - zone: 2
+          type: window
+          name: 'Dining Windows'
+        - zone: 3
+          type: window
+          name: 'Kitchen Windows'
+
+alarm_control_panel:
+  - platform: manual
+    name: Alarm
+    code: 5050
+    trigger_time: 300
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      delay_time: 0
+      pending_time: 0
+    armed_away:
+      delay_time: 60
+      pending_time: 30
+    triggered:
+      pending_time: 0
+
+#binary_sensor:
+#  - platform: wyzesense
+#    device: "/dev/hidraw0"
+
+#ifttt:
+#  key: ccH7aQ6YaIjkRa8XWCFSj318Z2lCAdEolZw6ilXa0jR
+
+# Example configuration.yaml entry for the Telegram Bot
+telegram_bot:
+  - platform: polling
+    api_key: "918166737:AAGQYqoyKe5v3XgKvL0F49SSk4ff0-4RgnE"
+    allowed_chat_ids:
+      - 791294591
+      - 970762410
+
+# Example configuration.yaml entry for the notifier
+notify:
+  - name: steveIOS
+    platform: telegram
+    chat_id: 791294591
+  - name: heddaIOS
+    platform: telegram
+    chat_id: 970762410
